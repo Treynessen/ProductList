@@ -10,3 +10,15 @@ D:\Users\trane\Desktop\C# практика\ProductList\ProductList\obj\Debug\Pro
 D:\Users\trane\Desktop\C# практика\ProductList\ProductList\obj\Debug\ProductList.exe
 D:\Users\trane\Desktop\C# практика\ProductList\ProductList\obj\Debug\ProductList.pdb
 D:\Users\trane\Desktop\C# практика\ProductList\ProductList\obj\Debug\Form1.resources
+D:\Users\trane\Desktop\github\ProductList\ProductList\bin\Debug\ProductList.exe.config
+D:\Users\trane\Desktop\github\ProductList\ProductList\bin\Debug\ProductList.exe
+D:\Users\trane\Desktop\github\ProductList\ProductList\bin\Debug\ProductList.pdb
+D:\Users\trane\Desktop\github\ProductList\ProductList\bin\Debug\ProductInfo.dll
+D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Debug\ProductList.csprojAssemblyReference.cache
+D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Debug\Form1.resources
+D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Debug\ProductList.Properties.Resources.resources
+D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Debug\ProductList.csproj.GenerateResource.cache
+D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Debug\ProductList.csproj.CoreCompileInputs.cache
+D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Debug\ProductList.csproj.CopyComplete
+D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Debug\ProductList.exe
+D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Debug\ProductList.pdb

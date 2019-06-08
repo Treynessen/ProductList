@@ -36,12 +36,15 @@ public partial class Form1 : Form
                     d.Price = Convert.ToInt32(currentProductGroup.ProductPriceTextBox.Text);
                 }
                 catch { }
+                SerializeToFile();
                 MessageBox.Show("Позиция изменена");
             };
             currentProductGroup.DeleteButton.Click += (sender, e) =>
             {
                 data.Remove(d);
+                SerializeToFile();
                 RefreshProductList();
+                MessageBox.Show("Позиция удалена");
             };
             productInfoGroups.AddLast(currentProductGroup);
             panel1.Controls.Add(productInfoGroups.Last.Value.ProductElementsGroup);
