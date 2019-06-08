@@ -47,7 +47,7 @@
             this.AddProductButton.Location = new System.Drawing.Point(12, 12);
             this.AddProductButton.Name = "AddProductButton";
             this.AddProductButton.Size = new System.Drawing.Size(206, 43);
-            this.AddProductButton.TabIndex = 0;
+            this.AddProductButton.TabIndex = 4;
             this.AddProductButton.Text = "Добавить товар";
             this.AddProductButton.UseVisualStyleBackColor = true;
             this.AddProductButton.Click += new System.EventHandler(this.AddProductButton_Click);
@@ -58,7 +58,7 @@
             this.FindTextBox.Location = new System.Drawing.Point(12, 95);
             this.FindTextBox.Name = "FindTextBox";
             this.FindTextBox.Size = new System.Drawing.Size(620, 31);
-            this.FindTextBox.TabIndex = 1;
+            this.FindTextBox.TabIndex = 5;
             // 
             // label1
             // 
@@ -67,7 +67,7 @@
             this.label1.Location = new System.Drawing.Point(8, 68);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(294, 24);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 10;
             this.label1.Text = "Поиск по номеру позиции";
             // 
             // FindButton
@@ -76,7 +76,7 @@
             this.FindButton.Location = new System.Drawing.Point(638, 95);
             this.FindButton.Name = "FindButton";
             this.FindButton.Size = new System.Drawing.Size(150, 31);
-            this.FindButton.TabIndex = 3;
+            this.FindButton.TabIndex = 6;
             this.FindButton.Text = "Найти";
             this.FindButton.UseVisualStyleBackColor = true;
             this.FindButton.Click += new System.EventHandler(this.FindButton_Click);
@@ -87,7 +87,7 @@
             this.ProductNameTextBox.Location = new System.Drawing.Point(278, 28);
             this.ProductNameTextBox.Name = "ProductNameTextBox";
             this.ProductNameTextBox.Size = new System.Drawing.Size(354, 26);
-            this.ProductNameTextBox.TabIndex = 4;
+            this.ProductNameTextBox.TabIndex = 2;
             // 
             // label2
             // 
@@ -97,7 +97,7 @@
             this.label2.Location = new System.Drawing.Point(275, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 17);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 8;
             this.label2.Text = "Название товара";
             // 
             // ProductPriceTextBox
@@ -106,7 +106,7 @@
             this.ProductPriceTextBox.Location = new System.Drawing.Point(638, 28);
             this.ProductPriceTextBox.Name = "ProductPriceTextBox";
             this.ProductPriceTextBox.Size = new System.Drawing.Size(150, 26);
-            this.ProductPriceTextBox.TabIndex = 6;
+            this.ProductPriceTextBox.TabIndex = 3;
             // 
             // label3
             // 
@@ -116,7 +116,7 @@
             this.label3.Location = new System.Drawing.Point(635, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 17);
-            this.label3.TabIndex = 7;
+            this.label3.TabIndex = 9;
             this.label3.Text = "Цена";
             // 
             // ProductPositionNumberTextBox
@@ -125,7 +125,7 @@
             this.ProductPositionNumberTextBox.Location = new System.Drawing.Point(224, 28);
             this.ProductPositionNumberTextBox.Name = "ProductPositionNumberTextBox";
             this.ProductPositionNumberTextBox.Size = new System.Drawing.Size(48, 26);
-            this.ProductPositionNumberTextBox.TabIndex = 8;
+            this.ProductPositionNumberTextBox.TabIndex = 1;
             // 
             // label4
             // 
@@ -135,7 +135,7 @@
             this.label4.Location = new System.Drawing.Point(221, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 17);
-            this.label4.TabIndex = 9;
+            this.label4.TabIndex = 7;
             this.label4.Text = "Номер";
             // 
             // panel1
@@ -144,7 +144,7 @@
             this.panel1.Location = new System.Drawing.Point(12, 132);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(776, 439);
-            this.panel1.TabIndex = 10;
+            this.panel1.TabIndex = 11;
             // 
             // Form1
             // 

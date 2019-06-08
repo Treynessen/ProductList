@@ -25,6 +25,7 @@ public partial class Form1 : Form
             currentProductGroup.SetProductInfo(d.PositionNumber, d.Name, d.Price);
             currentProductGroup.EditButton.Click += (sender, e) =>
             {
+                int oldPositionNumber = d.PositionNumber;
                 try
                 {
                     d.PositionNumber = Convert.ToInt32(currentProductGroup.ProductPositionNumberTextBox.Text);
@@ -36,7 +37,32 @@ public partial class Form1 : Form
                     d.Price = Convert.ToInt32(currentProductGroup.ProductPriceTextBox.Text);
                 }
                 catch { }
+                if (oldPositionNumber != d.PositionNumber)
+                {
+                    var node = data.Find(d);
+                    ProductInfo productInfo = node.Value;
+                    data.Remove(node);
+                    if (data.Count == 0)
+                        data.AddLast(productInfo);
+                    else
+                    {
+                        for (LinkedListNode<ProductInfo> it = data.First; it != null; it = it.Next)
+                        {
+                            if (productInfo.PositionNumber < it.Value.PositionNumber)
+                            {
+                                data.AddBefore(it, productInfo);
+                                break;
+                            }
+                            else if (it.Next == null)
+                            {
+                                data.AddLast(productInfo);
+                                break;
+                            }
+                        }
+                    }
+                }
                 SerializeToFile();
+                RefreshProductList();
                 MessageBox.Show("Позиция изменена");
             };
             currentProductGroup.DeleteButton.Click += (sender, e) =>
