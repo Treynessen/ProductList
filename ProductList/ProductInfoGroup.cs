@@ -1,8 +1,11 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using Treynessen.Products;
 
-public class ProductFormElements
+public class ProductInfoGroup
 {
+    private ProductInfo product;
+
     public GroupBox ProductElementsGroup { get; set; }
     public Label ProductPositionNumberLabel { get; set; }
     public TextBox ProductPositionNumberTextBox { get; set; }
@@ -13,11 +16,13 @@ public class ProductFormElements
     public Button EditButton { get; set; }
     public Button DeleteButton { get; set; }
 
-    public ProductFormElements(int yPosition, int width, Font labelFont, Font textBoxFont)
+    public ProductInfoGroup(ProductInfo product, int yPosition, int groupWidth, Font labelFont, Font textBoxFont)
     {
+        this.product = product;
+
         ProductElementsGroup = new GroupBox();
         ProductElementsGroup.Location = new Point(0, yPosition);
-        ProductElementsGroup.Width = width;
+        ProductElementsGroup.Width = groupWidth;
         ProductElementsGroup.Height = 72;
         ProductElementsGroup.Visible = true;
 
@@ -32,6 +37,7 @@ public class ProductFormElements
         ProductPositionNumberTextBox.Font = textBoxFont;
         ProductPositionNumberTextBox.Width = 60;
         ProductPositionNumberTextBox.Location = new Point(10, 34);
+        ProductPositionNumberTextBox.Text = product.PositionNumber.ToString();
         ProductPositionNumberTextBox.Visible = true;
 
         ProductNameLabel = new Label();
@@ -45,6 +51,7 @@ public class ProductFormElements
         ProductNameTextBox.Font = textBoxFont;
         ProductNameTextBox.Width = 400;
         ProductNameTextBox.Location = new Point(79, 34);
+        ProductNameTextBox.Text = product.Name;
         ProductNameTextBox.Visible = true;
 
         ProductPriceLabel = new Label();
@@ -58,6 +65,7 @@ public class ProductFormElements
         ProductPriceTextBox.Font = textBoxFont;
         ProductPriceTextBox.Width = 131;
         ProductPriceTextBox.Location = new Point(488, 34);
+        ProductPriceTextBox.Text = product.Price.ToString();
         ProductPriceTextBox.Visible = true;
 
         EditButton = new Button();
@@ -86,10 +94,20 @@ public class ProductFormElements
         ProductElementsGroup.Controls.Add(DeleteButton);
     }
     
-    public void SetProductInfo(int productPositionNumber, string productName, int productPrice)
+    public void RefreshProductInfo()
     {
-        ProductPositionNumberTextBox.Text = productPositionNumber.ToString();
-        ProductNameTextBox.Text = productName;
-        ProductPriceTextBox.Text = productPrice.ToString();
+        ProductPositionNumberTextBox.Text = product.PositionNumber.ToString();
+        ProductNameTextBox.Text = product.Name;
+        ProductPriceTextBox.Text = product.Price.ToString();
     }
+
+    public int GetCurrentGroupYPosition() => ProductElementsGroup.Location.Y;
+
+    public void SetNewGroupYPosition(int yPos)
+    {
+        int xPos = ProductElementsGroup.Location.X;
+        ProductElementsGroup.Location = new Point(xPos, yPos);
+    }
+
+    public bool ReferenceEquals(ProductInfo obj) => ReferenceEquals(product, obj);
 }

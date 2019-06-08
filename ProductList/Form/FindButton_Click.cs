@@ -9,11 +9,16 @@ public partial class Form1 : Form
 {
     private void FindButton_Click(object sender, EventArgs e)
     {
+        if (FindTextBox.Text.Equals(string.Empty))
+        {
+            DisplayProductList(data);
+            return;
+        }
         try
         {
             int positionNumber = Convert.ToInt32(FindTextBox.Text);
             LinkedList<ProductInfo> foundProducts = new LinkedList<ProductInfo>(data.Where(d => d.PositionNumber == positionNumber));
-            RefreshProductList(foundProducts);
+            DisplayProductList(foundProducts);
         }
         catch
         {

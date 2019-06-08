@@ -50,11 +50,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form\AddProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\AddGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\EditProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\DeleteProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\DeleteGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form\FindButton_Click.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProductFormElements.cs" />
-    <Compile Include="Form\RefreshProductList.cs">
+    <Compile Include="ProductInfoGroup.cs" />
+    <Compile Include="Form\DisplayProductList.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\DesirializeFromFile.cs">

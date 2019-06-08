@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Data;
@@ -24,33 +25,16 @@ public partial class Form1 : Form
             positionNumber = Convert.ToInt32(ProductPositionNumberTextBox.Text);
         }
         catch { }
-        ProductInfo productInfo = new ProductInfo
+        ProductInfo product = new ProductInfo
         {
             Name = ProductNameTextBox.Text,
             Price = price,
             PositionNumber = positionNumber
         };
-        if (data.Count == 0)
-            data.AddLast(productInfo);
-        else
-        {
-            for (LinkedListNode<ProductInfo> it = data.First; it != null; it = it.Next)
-            {
-                if (productInfo.PositionNumber < it.Value.PositionNumber)
-                {
-                    data.AddBefore(it, productInfo);
-                    break;
-                }
-                else if (it.Next == null)
-                {
-                    data.AddLast(productInfo);
-                    break;
-                }
-            }
-        }
+        AddProduct(product);
         ProductNameTextBox.Text = ProductPriceTextBox.Text = ProductPositionNumberTextBox.Text = string.Empty;
         SerializeToFile();
-        RefreshProductList();
+        AddGroup(product);
         MessageBox.Show("Товар добавлен");
     }
 }
