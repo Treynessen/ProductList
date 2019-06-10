@@ -19,9 +19,11 @@ public partial class Form1 : Form
             int positionNumber = Convert.ToInt32(FindTextBox.Text);
             LinkedList<ProductInfo> foundProducts = new LinkedList<ProductInfo>(data.Where(d => d.PositionNumber == positionNumber));
             DisplayProductList(foundProducts);
+            displayedPosition = positionNumber;
         }
         catch
         {
+            displayedPosition = null;
             MessageBox.Show("Неверно задан номер позиции");
         }
         finally

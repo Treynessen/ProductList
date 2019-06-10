@@ -24,7 +24,10 @@ public partial class Form1 : Form
                 productGroup.SetNewGroupYPosition(GetNextYPosition(displayedGroups.Last.Value.GetCurrentGroupYPosition()));
                 displayedGroups.AddLast(productGroup);
             }
-            
+            productGroup.EditButton.Click += (sender, e) =>
+            EditProduct(product, productGroup.ProductPositionNumberTextBox.Text, productGroup.ProductNameTextBox.Text, productGroup.ProductPriceTextBox.Text);
+            productGroup.DeleteButton.Click += (sender, e) => DeleteProduct(product);
+            panel1.Controls.Add(productGroup.ProductElementsGroup);
         }
         else if (!displayedPosition.HasValue)
         {
@@ -66,10 +69,10 @@ public partial class Form1 : Form
                     it.Value.SetNewGroupYPosition(GetNextYPosition(it.Value.GetCurrentGroupYPosition()));
                 }
             }
+            productGroup.EditButton.Click += (sender, e) =>
+            EditProduct(product, productGroup.ProductPositionNumberTextBox.Text, productGroup.ProductNameTextBox.Text, productGroup.ProductPriceTextBox.Text);
+            productGroup.DeleteButton.Click += (sender, e) => DeleteProduct(product);
+            panel1.Controls.Add(productGroup.ProductElementsGroup);
         }
-        productGroup.EditButton.Click += (sender, e) =>
-        EditProduct(product, productGroup.ProductPositionNumberTextBox.Text, productGroup.ProductNameTextBox.Text, productGroup.ProductPriceTextBox.Text);
-        productGroup.DeleteButton.Click += (sender, e) => DeleteProduct(product);
-        panel1.Controls.Add(productGroup.ProductElementsGroup);
     }
 }
