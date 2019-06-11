@@ -40,7 +40,7 @@ class Program
                 "<td></td>" +
                 "<td>1</td>" +
                 "<td></td>" +
-                $"<td>№{product.PositionNumber}</td>" +
+                $"<td>№{product.PositionNumber}#</td>" +
                 "<td>NORMAL</td>" +
                 "<td></td>" +
                 $"<td>{product.Price}</td>" +
