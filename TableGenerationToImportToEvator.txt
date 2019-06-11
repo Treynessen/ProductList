@@ -1,0 +1,57 @@
+using System;
+using System.IO;
+using System.Text;
+using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
+using Microsoft.Office.Interop.Excel;
+using Treynessen.Products;
+
+class Program
+{
+    private static Application app = new Application();
+
+    static void Main()
+    {
+        StringBuilder content = new StringBuilder();
+        content.Append("<!DOCTYPE html>\n<html lang=\"ru-RU\">\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title>Список товаров</title>\n</head>\n<body>\n\t<table>");
+        Console.Write("Файл с БД товаров: ");
+        string pathToDB = Console.ReadLine();
+        Console.Write("Товарный отчет: ");
+        string pathToFile = Console.ReadLine();
+        Workbook wb = app.Workbooks.Open(pathToFile);
+        Worksheet sheet = wb.Worksheets[1] as Worksheet;
+        LinkedList<ProductInfo> products = null;
+        using (FileStream fs = new FileStream(pathToDB, FileMode.Open))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            products = formatter.Deserialize(fs) as LinkedList<ProductInfo>;
+        }
+        int ID = 1;
+        foreach (var product in products)
+        {
+            int count = Convert.ToInt32((sheet.Cells[product.PositionNumber + 2, 4] as Range).Value2.ToString());
+            content.Append($"<tr>" +
+                "<td></td>" +
+                $"<td>{product.Name}</td>" +
+                "<td>0</td>" +
+                $"<td>{ID++}</td>" +
+                "<td></td>" +
+                "<td>шт</td>" +
+                "<td></td>" +
+                "<td>1</td>" +
+                "<td></td>" +
+                $"<td>№{product.PositionNumber}</td>" +
+                "<td>NORMAL</td>" +
+                "<td></td>" +
+                $"<td>{product.Price}</td>" +
+                $"<td>{count}</td>" +
+                $"</tr>");
+        }
+        content.Append("\n</body>\n</html>");
+        using (StreamWriter writer = new StreamWriter("Список позиций.html"))
+        {
+            writer.Write(content.ToString());
+        }
+        wb.Close();
+    }
+}

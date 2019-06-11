@@ -13,8 +13,11 @@ public partial class Form1 : Form
         if (string.IsNullOrEmpty(ProductNameTextBox.Text)
             && string.IsNullOrEmpty(ProductPriceTextBox.Text)
             && string.IsNullOrEmpty(ProductPositionNumberTextBox.Text))
+        {
+            MessageBox.Show("Форма не заполнена или заполнена неверно");
             return;
-        int price = 0, positionNumber = 0;
+        }
+        int? price = null, positionNumber = null;
         try
         {
             price = Convert.ToInt32(ProductPriceTextBox.Text);
@@ -25,11 +28,20 @@ public partial class Form1 : Form
             positionNumber = Convert.ToInt32(ProductPositionNumberTextBox.Text);
         }
         catch { }
+        if (!positionNumber.HasValue && string.IsNullOrEmpty(ProductNameTextBox.Text) && !price.HasValue)
+        {
+            MessageBox.Show("Форма не заполнена или заполнена неверно");
+            return;
+        }
+        if (!positionNumber.HasValue)
+            positionNumber = 0;
+        if (!price.HasValue)
+            price = 0;
         ProductInfo product = new ProductInfo
         {
             Name = ProductNameTextBox.Text,
-            Price = price,
-            PositionNumber = positionNumber
+            Price = price.Value,
+            PositionNumber = positionNumber.Value
         };
         AddProduct(product);
         ProductNameTextBox.Text = ProductPriceTextBox.Text = ProductPositionNumberTextBox.Text = string.Empty;

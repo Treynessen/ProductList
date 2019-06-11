@@ -1,0 +1,125 @@
+using System;
+using System.IO;
+using System.Text;
+using System.Collections.Generic;
+using Microsoft.Office.Interop.Excel;
+ 
+class ProductInfo
+{
+    public int ID { get; }
+    public string Name { get; }
+    public int Price { get; }
+ 
+    public ProductInfo(int id, string name, int price)
+    {
+        ID = id;
+        Name = name;
+        Price = price;
+    }
+}
+ 
+class Program
+{
+    private static Application app = new Application();
+ 
+    static void Main()
+    {
+        Console.Write("Путь до старого товарного отчета: ");
+        string oldFilePath = Console.ReadLine();
+        oldFilePath = GetCorrectPath(oldFilePath);
+        Console.Write("Путь до нового товарного отчета: ");
+        string newFilePath = Console.ReadLine();
+        newFilePath = GetCorrectPath(newFilePath);
+        Console.Write("Номер начальной строки: ");
+        int beginRow = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Номер конечной строки: ");
+        int endRow = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Номер столбца с ID: ");
+        int idCol = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Номер столбца с названием: ");
+        int nameCol = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Номер столбца с ценой: ");
+        int priceCol = Convert.ToInt32(Console.ReadLine());
+ 
+        var oldFileProducts = GetProducts(oldFilePath, beginRow, endRow, idCol, nameCol, priceCol);
+        var newFileProducts = GetProducts(newFilePath, beginRow, endRow, idCol, nameCol, priceCol);
+ 
+        StringBuilder changesLog = new StringBuilder();
+        string fileName = $"Изменения за {DateTime.Now.ToShortDateString()}";
+        changesLog.Append($"<!DOCTYPE html>\n<html lang=\"ru-RU\">\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title>{fileName}</title>" +
+            "\n\t<style type=\"text/css\">\n\t\tbody{font-size: 1.4rem; font-family: \"Century Gothic\", 'Times New Roman', Arial, sans-serif;}\n\t</style>" +
+            "\n</head>\n<body>\n\t");
+        for (LinkedListNode<ProductInfo> oldProductNode = oldFileProducts.First, newProductNode = newFileProducts.First;
+            oldProductNode != null && newProductNode != null;
+            oldProductNode = oldProductNode.Next, newProductNode = newProductNode.Next)
+        {
+            ProductInfo oldProduct = oldProductNode.Value;
+            ProductInfo newProduct = newProductNode.Value;
+            bool wasChanged = false;
+            if (!oldProduct.Name.Equals(newProduct.Name, StringComparison.InvariantCultureIgnoreCase))
+            {
+                wasChanged = true;
+                changesLog.Append($"Позиция №{oldProduct.ID}:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Было изменено название с <b>{oldProduct.Name}</b> на <b>{newProduct.Name}</b>");
+            }
+            if (oldProduct.Price != newProduct.Price)
+            {
+                if (!wasChanged)
+                {
+                    wasChanged = true;
+                    changesLog.Append($"Позиция №{oldProduct.ID}:");
+                }
+                changesLog.Append($"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Было изменение цены с <b>{oldProduct.Price} рублей</b> на <b>{newProduct.Price} рублей</b>");
+            }
+            if (wasChanged)
+                changesLog.Append("<br><br>");
+        }
+        changesLog.Append("\n</body>\n<html>");
+        using (StreamWriter writer = new StreamWriter($"{fileName}.html"))
+        {
+            writer.Write(changesLog.ToString());
+        }
+    }
+ 
+    static LinkedList<ProductInfo> GetProducts(string pathToFile, int beginRow, int endRow, int idCol, int nameCol, int priceCol)
+    {
+        Workbook wb = app.Workbooks.Open(pathToFile);
+        Worksheet sheet = wb.Worksheets[1] as Worksheet;
+        LinkedList<ProductInfo> products = new LinkedList<ProductInfo>();
+        for (int i = beginRow; i <= endRow; ++i)
+        {
+            int id = 0;
+            string name = null;
+            int price = 0;
+            try
+            {
+                id = Convert.ToInt32((sheet.Cells[i, idCol] as Range).Value2.ToString());
+            }
+            catch { }
+            try
+            {
+                name = (sheet.Cells[i, nameCol] as Range).Value2.ToString();
+            }
+            catch
+            {
+                name = string.Empty;
+            }
+            try
+            {
+                price = Convert.ToInt32((sheet.Cells[i, priceCol] as Range).Value2.ToString());
+            }
+            catch { }
+            products.AddLast(new ProductInfo(id, name, price));
+        }
+        wb.Close();
+        return products;
+    }
+ 
+    static string GetCorrectPath(string path)
+    {
+        if (path[0].Equals('\"'))
+            path = path.Substring(1);
+        if (path[path.Length - 1].Equals('\"'))
+            path = path.Substring(0, path.Length - 1);
+        return path;
+    }
+}
