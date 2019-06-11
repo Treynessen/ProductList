@@ -15,9 +15,9 @@ class Program
         StringBuilder content = new StringBuilder();
         content.Append("<!DOCTYPE html>\n<html lang=\"ru-RU\">\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title>Список товаров</title>\n</head>\n<body>\n\t<table>");
         Console.Write("Файл с БД товаров: ");
-        string pathToDB = Console.ReadLine();
+        string pathToDB = GetCorrectPath(Console.ReadLine());
         Console.Write("Товарный отчет: ");
-        string pathToFile = Console.ReadLine();
+        string pathToFile = GetCorrectPath(Console.ReadLine());
         Workbook wb = app.Workbooks.Open(pathToFile);
         Worksheet sheet = wb.Worksheets[1] as Worksheet;
         LinkedList<ProductInfo> products = null;
@@ -53,5 +53,14 @@ class Program
             writer.Write(content.ToString());
         }
         wb.Close();
+    }
+    
+    static string GetCorrectPath(string path)
+    {
+        if (path[0].Equals('\"'))
+            path = path.Substring(1);
+        if (path[path.Length - 1].Equals('\"'))
+            path = path.Substring(0, path.Length - 1);
+        return path;
     }
 }
