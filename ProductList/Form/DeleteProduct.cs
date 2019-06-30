@@ -6,7 +6,7 @@ using Treynessen.Products;
 
 public partial class Form1 : Form
 {
-    private void DeleteProduct(ProductInfo product)
+    private void DeleteProduct(ProductInformation product)
     {
         data.Remove(product);
         SerializeToFile();

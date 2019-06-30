@@ -5,16 +5,16 @@ using Treynessen.Products;
 
 public partial class Form1 : Form
 {
-    private LinkedList<ProductInfo> DesirializeFromFile()
+    private LinkedList<ProductInformation> DesirializeFromFile()
     {
         BinaryFormatter formatter = new BinaryFormatter();
         try
         {
-            return formatter.Deserialize(dataFile) as LinkedList<ProductInfo>;
+            return formatter.Deserialize(dataFile) as LinkedList<ProductInformation>;
         }
         catch
         {
-            return new LinkedList<ProductInfo>();
+            return new LinkedList<ProductInformation>();
         }
     }
 }

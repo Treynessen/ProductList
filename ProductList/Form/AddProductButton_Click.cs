@@ -37,7 +37,7 @@ public partial class Form1 : Form
             positionNumber = 0;
         if (!price.HasValue)
             price = 0;
-        ProductInfo product = new ProductInfo
+        ProductInformation product = new ProductInformation
         {
             Name = ProductNameTextBox.Text,
             Price = price.Value,

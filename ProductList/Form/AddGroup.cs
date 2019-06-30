@@ -6,15 +6,18 @@ using Treynessen.Products;
 
 public partial class Form1 : Form
 {
-    private void AddGroup(ProductInfo product)
+    private void AddGroup(ProductInformation product)
     {
         ProductInfoGroup productGroup = new ProductInfoGroup(
                 product: product,
                 yPosition: 0,
                 groupWidth: panel1.Width - 20,
                 labelFont: new Font("Century Gothic", 10, FontStyle.Regular),
-                textBoxFont: new Font("Century Gothic", 12, FontStyle.Regular)
+                textBoxFont: new Font("Century Gothic", 12, FontStyle.Regular),
+                barcodeLabel: new Font("Century Gothic", 14, FontStyle.Regular)
         );
+        // Если сейчас отображены позиции определенного ID из товарного отчета и позиция нашего товара
+        // совпадает с ID
         if (displayedPosition.HasValue && displayedPosition.Value == product.PositionNumber)
         {
             if (displayedGroups.Count == 0)
@@ -25,15 +28,16 @@ public partial class Form1 : Form
                 displayedGroups.AddLast(productGroup);
             }
             productGroup.EditButton.Click += (sender, e) =>
-            EditProduct(product, productGroup.ProductPositionNumberTextBox.Text, productGroup.ProductNameTextBox.Text, productGroup.ProductPriceTextBox.Text);
+            EditProduct(product, productGroup.ProductPositionNumberTextBox.Text, productGroup.ProductNameTextBox.Text, productGroup.ProductPriceTextBox.Text, productGroup.ProductBarcodeTextBox.Text);
             productGroup.DeleteButton.Click += (sender, e) => DeleteProduct(product);
             panel1.Controls.Add(productGroup.ProductElementsGroup);
         }
         else if (!displayedPosition.HasValue)
         {
-            LinkedListNode<ProductInfo> productNode = null;
-            for (LinkedListNode<ProductInfo> it = data.First; it != null; it = it.Next)
+            LinkedListNode<ProductInformation> productNode = null;
+            for (LinkedListNode<ProductInformation> it = data.First; it != null; it = it.Next)
             {
+                // Находим наш товар в списке товаров
                 if (ReferenceEquals(product, it.Value))
                 {
                     productNode = it;
@@ -41,10 +45,12 @@ public partial class Form1 : Form
                 }
             }
             LinkedListNode<ProductInfoGroup> productGroupNode = null;
+            // Если у узла товара нет ссылки на предыдущую позицию, значит он первый в списке
             if (productNode.Previous == null)
             {
                 productGroupNode = displayedGroups.AddFirst(productGroup);
             }
+            // Если нет ссылки на следующий узел, значит наш товар последний в списке
             else if (productNode.Next == null)
             {
                 productGroup.SetNewGroupYPosition(GetNextYPosition(displayedGroups.Last.Value.GetCurrentGroupYPosition()));
@@ -53,15 +59,17 @@ public partial class Form1 : Form
             else
             {
                 LinkedListNode<ProductInfoGroup> node = null;
-                ProductInfo previousProduct = productNode.Previous.Value;
+                ProductInformation previousProduct = productNode.Previous.Value;
                 for (LinkedListNode<ProductInfoGroup> it = displayedGroups.First; it != null; it = it.Next)
                 {
+                    // Ищем в списке отображений предыдущий товар
                     if (it.Value.ReferenceEquals(previousProduct))
                     {
                         node = it;
                         break;
                     }
                 }
+                // Смещаем все последующие позиции и добавляем в отображений наш товар
                 productGroup.SetNewGroupYPosition(GetNextYPosition(node.Value.GetCurrentGroupYPosition()));
                 productGroupNode = displayedGroups.AddAfter(node, productGroup);
                 for (LinkedListNode<ProductInfoGroup> it = productGroupNode.Next; it != null; it = it.Next)
@@ -70,7 +78,7 @@ public partial class Form1 : Form
                 }
             }
             productGroup.EditButton.Click += (sender, e) =>
-            EditProduct(product, productGroup.ProductPositionNumberTextBox.Text, productGroup.ProductNameTextBox.Text, productGroup.ProductPriceTextBox.Text);
+            EditProduct(product, productGroup.ProductPositionNumberTextBox.Text, productGroup.ProductNameTextBox.Text, productGroup.ProductPriceTextBox.Text, productGroup.ProductBarcodeTextBox.Text);
             productGroup.DeleteButton.Click += (sender, e) => DeleteProduct(product);
             panel1.Controls.Add(productGroup.ProductElementsGroup);
         }

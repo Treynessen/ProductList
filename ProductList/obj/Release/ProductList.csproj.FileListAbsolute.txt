@@ -1,7 +1,6 @@
 D:\Users\trane\Desktop\github\ProductList\ProductList\bin\Release\ProductList.exe.config
 D:\Users\trane\Desktop\github\ProductList\ProductList\bin\Release\ProductList.exe
 D:\Users\trane\Desktop\github\ProductList\ProductList\bin\Release\ProductList.pdb
-D:\Users\trane\Desktop\github\ProductList\ProductList\bin\Release\ProductInfo.dll
 D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Release\Form1.resources
 D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Release\ProductList.Properties.Resources.resources
 D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Release\ProductList.csproj.GenerateResource.cache
@@ -9,3 +8,4 @@ D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Release\ProductList.cs
 D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Release\ProductList.csproj.CopyComplete
 D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Release\ProductList.exe
 D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Release\ProductList.pdb
+D:\Users\trane\Desktop\github\ProductList\ProductList\bin\Release\ProductInformation.dll

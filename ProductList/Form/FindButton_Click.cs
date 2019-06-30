@@ -17,7 +17,7 @@ public partial class Form1 : Form
         try
         {
             int positionNumber = Convert.ToInt32(FindTextBox.Text);
-            LinkedList<ProductInfo> foundProducts = new LinkedList<ProductInfo>(data.Where(d => d.PositionNumber == positionNumber));
+            LinkedList<ProductInformation> foundProducts = new LinkedList<ProductInformation>(data.Where(d => d.PositionNumber == positionNumber));
             DisplayProductList(foundProducts);
             displayedPosition = positionNumber;
         }

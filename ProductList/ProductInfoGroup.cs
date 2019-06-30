@@ -4,7 +4,7 @@ using Treynessen.Products;
 
 public class ProductInfoGroup
 {
-    private ProductInfo product;
+    private ProductInformation product;
 
     public GroupBox ProductElementsGroup { get; set; }
     public Label ProductPositionNumberLabel { get; set; }
@@ -13,17 +13,19 @@ public class ProductInfoGroup
     public TextBox ProductNameTextBox { get; set; }
     public Label ProductPriceLabel { get; set; }
     public TextBox ProductPriceTextBox { get; set; }
+    public Label ProductBarcodeLabel { get; set; }
+    public TextBox ProductBarcodeTextBox { get; set; }
     public Button EditButton { get; set; }
     public Button DeleteButton { get; set; }
 
-    public ProductInfoGroup(ProductInfo product, int yPosition, int groupWidth, Font labelFont, Font textBoxFont)
+    public ProductInfoGroup(ProductInformation product, int yPosition, int groupWidth, Font labelFont, Font textBoxFont, Font barcodeLabel)
     {
         this.product = product;
 
         ProductElementsGroup = new GroupBox();
         ProductElementsGroup.Location = new Point(0, yPosition);
         ProductElementsGroup.Width = groupWidth;
-        ProductElementsGroup.Height = 72;
+        ProductElementsGroup.Height = 108;
         ProductElementsGroup.Visible = true;
 
         ProductPositionNumberLabel = new Label();
@@ -68,12 +70,26 @@ public class ProductInfoGroup
         ProductPriceTextBox.Text = product.Price.ToString();
         ProductPriceTextBox.Visible = true;
 
+        ProductBarcodeLabel = new Label();
+        ProductBarcodeLabel.Font = barcodeLabel;
+        ProductBarcodeLabel.Width = 110;
+        ProductBarcodeLabel.Text = "Штрих-код";
+        ProductBarcodeLabel.Location = new Point(5, 72);
+        ProductBarcodeLabel.Visible = true;
+
+        ProductBarcodeTextBox = new TextBox();
+        ProductBarcodeTextBox.Font = textBoxFont;
+        ProductBarcodeTextBox.Width = 500;
+        ProductBarcodeTextBox.Location = new Point(119, 70);
+        ProductBarcodeTextBox.Text = product.Barcode;
+        ProductBarcodeTextBox.Visible = true;
+
         EditButton = new Button();
         EditButton.Font = labelFont;
         EditButton.Width = 120;
         EditButton.Height = 30;
         EditButton.Text = "Изменить";
-        EditButton.Location = new Point(627, 8);
+        EditButton.Location = new Point(627, 32);
         EditButton.Visible = true;
 
         DeleteButton = new Button();
@@ -81,7 +97,7 @@ public class ProductInfoGroup
         DeleteButton.Width = 120;
         DeleteButton.Height = 30;
         DeleteButton.Text = "Удалить";
-        DeleteButton.Location = new Point(627, 39);
+        DeleteButton.Location = new Point(627, 68);
         DeleteButton.Visible = true;
 
         ProductElementsGroup.Controls.Add(ProductPositionNumberLabel);
@@ -90,6 +106,8 @@ public class ProductInfoGroup
         ProductElementsGroup.Controls.Add(ProductNameTextBox);
         ProductElementsGroup.Controls.Add(ProductPriceLabel);
         ProductElementsGroup.Controls.Add(ProductPriceTextBox);
+        ProductElementsGroup.Controls.Add(ProductBarcodeLabel);
+        ProductElementsGroup.Controls.Add(ProductBarcodeTextBox);
         ProductElementsGroup.Controls.Add(EditButton);
         ProductElementsGroup.Controls.Add(DeleteButton);
     }
@@ -99,6 +117,7 @@ public class ProductInfoGroup
         ProductPositionNumberTextBox.Text = product.PositionNumber.ToString();
         ProductNameTextBox.Text = product.Name;
         ProductPriceTextBox.Text = product.Price.ToString();
+        ProductBarcodeTextBox.Text = product.Barcode;
     }
 
     public int GetCurrentGroupYPosition() => ProductElementsGroup.Location.Y;
@@ -109,5 +128,5 @@ public class ProductInfoGroup
         ProductElementsGroup.Location = new Point(xPos, yPos);
     }
 
-    public bool ReferenceEquals(ProductInfo obj) => ReferenceEquals(product, obj);
+    public bool ReferenceEquals(ProductInformation obj) => ReferenceEquals(product, obj);
 }

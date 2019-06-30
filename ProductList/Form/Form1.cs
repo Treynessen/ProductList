@@ -8,7 +8,7 @@ public partial class Form1 : Form
 {
     private int? displayedPosition;
 
-    private LinkedList<ProductInfo> data;
+    private LinkedList<ProductInformation> data;
     private FileStream dataFile;
 
     private LinkedList<ProductInfoGroup> displayedGroups;
@@ -30,7 +30,7 @@ public partial class Form1 : Form
         dataFile.Close();
     }
 
-    private int GetNextYPosition(int currentYPosition) => currentYPosition + 72;
+    private int GetNextYPosition(int currentYPosition) => currentYPosition + 108;
 
-    private int GetPreviousYPosition(int currentYPosition) => currentYPosition - 72;
+    private int GetPreviousYPosition(int currentYPosition) => currentYPosition - 108;
 }
