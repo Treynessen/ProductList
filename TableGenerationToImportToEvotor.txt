@@ -16,15 +16,17 @@ class Program
         content.Append("<!DOCTYPE html>\n<html lang=\"ru-RU\">\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title>Список товаров</title>\n</head>\n<body>\n\t<table>");
         Console.Write("Файл с БД товаров: ");
         string pathToDB = Console.ReadLine();
+        pathToDB = GetCorrectPath(pathToDB);
         Console.Write("Товарный отчет: ");
         string pathToFile = Console.ReadLine();
+        pathToDB = GetCorrectPath(pathToFile);
         Workbook wb = app.Workbooks.Open(pathToFile);
         Worksheet sheet = wb.Worksheets[1] as Worksheet;
-        LinkedList<ProductInfo> products = null;
+        LinkedList<ProductInformation> products = null;
         using (FileStream fs = new FileStream(pathToDB, FileMode.Open))
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            products = formatter.Deserialize(fs) as LinkedList<ProductInfo>;
+            products = formatter.Deserialize(fs) as LinkedList<ProductInformation>;
         }
         int ID = 1;
         foreach (var product in products)
@@ -45,6 +47,7 @@ class Program
                 "<td></td>" +
                 $"<td>{product.Price}</td>" +
                 $"<td>{count}</td>" +
+                $"<td>{product.Barcode}</td>" +
                 $"</tr>");
         }
         content.Append("\n</body>\n</html>");
@@ -53,5 +56,14 @@ class Program
             writer.Write(content.ToString());
         }
         wb.Close();
+    }
+
+    private static string GetCorrectPath(string path)
+    {
+        if (path[0].Equals('\"'))
+            path = path.Substring(1);
+        if (path[path.Length - 1].Equals('\"'))
+            path = path.Substring(0, path.Length - 1);
+        return path;
     }
 }
