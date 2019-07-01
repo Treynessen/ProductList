@@ -19,7 +19,7 @@ class Program
         pathToDB = GetCorrectPath(pathToDB);
         Console.Write("Товарный отчет: ");
         string pathToFile = Console.ReadLine();
-        pathToDB = GetCorrectPath(pathToFile);
+        pathToFile = GetCorrectPath(pathToFile);
         Workbook wb = app.Workbooks.Open(pathToFile);
         Worksheet sheet = wb.Worksheets[1] as Worksheet;
         LinkedList<ProductInformation> products = null;
