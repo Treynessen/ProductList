@@ -38,7 +38,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.ProductPositionNumberTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.productsPanel = new System.Windows.Forms.Panel();
+            this.PreviousPageButton = new System.Windows.Forms.Button();
+            this.NextPageButton = new System.Windows.Forms.Button();
+            this.PageInfoLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // AddProductButton
@@ -138,20 +141,57 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Номер";
             // 
-            // panel1
+            // productsPanel
             // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Location = new System.Drawing.Point(12, 132);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(776, 439);
-            this.panel1.TabIndex = 11;
+            this.productsPanel.AutoScroll = true;
+            this.productsPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.productsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.productsPanel.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.productsPanel.Location = new System.Drawing.Point(12, 132);
+            this.productsPanel.Name = "productsPanel";
+            this.productsPanel.Size = new System.Drawing.Size(776, 450);
+            this.productsPanel.TabIndex = 11;
+            // 
+            // PreviousPageButton
+            // 
+            this.PreviousPageButton.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PreviousPageButton.Location = new System.Drawing.Point(11, 588);
+            this.PreviousPageButton.Name = "PreviousPageButton";
+            this.PreviousPageButton.Size = new System.Drawing.Size(243, 31);
+            this.PreviousPageButton.TabIndex = 12;
+            this.PreviousPageButton.Text = "Предыдущая страница";
+            this.PreviousPageButton.UseVisualStyleBackColor = true;
+            this.PreviousPageButton.Click += new System.EventHandler(this.PreviousPageButton_Click);
+            // 
+            // NextPageButton
+            // 
+            this.NextPageButton.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.NextPageButton.Location = new System.Drawing.Point(261, 588);
+            this.NextPageButton.Name = "NextPageButton";
+            this.NextPageButton.Size = new System.Drawing.Size(243, 31);
+            this.NextPageButton.TabIndex = 13;
+            this.NextPageButton.Text = "Следующая страница";
+            this.NextPageButton.UseVisualStyleBackColor = true;
+            this.NextPageButton.Click += new System.EventHandler(this.NextPageButton_Click);
+            // 
+            // PageInfoLabel
+            // 
+            this.PageInfoLabel.AutoSize = true;
+            this.PageInfoLabel.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PageInfoLabel.Location = new System.Drawing.Point(510, 588);
+            this.PageInfoLabel.Name = "PageInfoLabel";
+            this.PageInfoLabel.Size = new System.Drawing.Size(0, 17);
+            this.PageInfoLabel.TabIndex = 14;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 583);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(800, 631);
+            this.Controls.Add(this.PageInfoLabel);
+            this.Controls.Add(this.NextPageButton);
+            this.Controls.Add(this.PreviousPageButton);
+            this.Controls.Add(this.productsPanel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.ProductPositionNumberTextBox);
             this.Controls.Add(this.label3);
@@ -164,8 +204,8 @@
             this.Controls.Add(this.AddProductButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(816, 622);
-            this.MinimumSize = new System.Drawing.Size(816, 622);
+            this.MaximumSize = new System.Drawing.Size(816, 670);
+            this.MinimumSize = new System.Drawing.Size(816, 670);
             this.Name = "Form1";
             this.Text = "База товаров";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -187,6 +227,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox ProductPositionNumberTextBox;
         private System.Windows.Forms.Label label4;
-    private System.Windows.Forms.Panel panel1;
+    private System.Windows.Forms.Panel productsPanel;
+    private System.Windows.Forms.Button PreviousPageButton;
+    private System.Windows.Forms.Button NextPageButton;
+    private System.Windows.Forms.Label PageInfoLabel;
 }
 

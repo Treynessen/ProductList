@@ -2,11 +2,11 @@
 using System.Windows.Forms;
 using Treynessen.Products;
 
-public class ProductInfoGroup
+public class ProductCell
 {
-    private ProductInformation product;
+    public ProductInformation Product { get; private set; }
 
-    public GroupBox ProductElementsGroup { get; set; }
+    public GroupBox Cell { get; set; }
     public Label ProductPositionNumberLabel { get; set; }
     public TextBox ProductPositionNumberTextBox { get; set; }
     public Label ProductNameLabel { get; set; }
@@ -18,15 +18,16 @@ public class ProductInfoGroup
     public Button EditButton { get; set; }
     public Button DeleteButton { get; set; }
 
-    public ProductInfoGroup(ProductInformation product, int yPosition, int groupWidth, Font labelFont, Font textBoxFont, Font barcodeLabel)
+    public ProductCell(ProductInformation product, int yPosition, int groupWidth, 
+        Font labelFont, Font textBoxFont, Font barcodeLabelFont)
     {
-        this.product = product;
+        Product = product;
 
-        ProductElementsGroup = new GroupBox();
-        ProductElementsGroup.Location = new Point(0, yPosition);
-        ProductElementsGroup.Width = groupWidth;
-        ProductElementsGroup.Height = 108;
-        ProductElementsGroup.Visible = true;
+        Cell = new GroupBox();
+        Cell.Location = new Point(0, yPosition);
+        Cell.Width = groupWidth;
+        Cell.Height = 108;
+        Cell.Visible = false;
 
         ProductPositionNumberLabel = new Label();
         ProductPositionNumberLabel.Font = labelFont;
@@ -71,7 +72,7 @@ public class ProductInfoGroup
         ProductPriceTextBox.Visible = true;
 
         ProductBarcodeLabel = new Label();
-        ProductBarcodeLabel.Font = barcodeLabel;
+        ProductBarcodeLabel.Font = barcodeLabelFont;
         ProductBarcodeLabel.Width = 110;
         ProductBarcodeLabel.Text = "Штрих-код";
         ProductBarcodeLabel.Location = new Point(5, 72);
@@ -100,33 +101,33 @@ public class ProductInfoGroup
         DeleteButton.Location = new Point(627, 68);
         DeleteButton.Visible = true;
 
-        ProductElementsGroup.Controls.Add(ProductPositionNumberLabel);
-        ProductElementsGroup.Controls.Add(ProductPositionNumberTextBox);
-        ProductElementsGroup.Controls.Add(ProductNameLabel);
-        ProductElementsGroup.Controls.Add(ProductNameTextBox);
-        ProductElementsGroup.Controls.Add(ProductPriceLabel);
-        ProductElementsGroup.Controls.Add(ProductPriceTextBox);
-        ProductElementsGroup.Controls.Add(ProductBarcodeLabel);
-        ProductElementsGroup.Controls.Add(ProductBarcodeTextBox);
-        ProductElementsGroup.Controls.Add(EditButton);
-        ProductElementsGroup.Controls.Add(DeleteButton);
+        Cell.Controls.Add(ProductPositionNumberLabel);
+        Cell.Controls.Add(ProductPositionNumberTextBox);
+        Cell.Controls.Add(ProductNameLabel);
+        Cell.Controls.Add(ProductNameTextBox);
+        Cell.Controls.Add(ProductPriceLabel);
+        Cell.Controls.Add(ProductPriceTextBox);
+        Cell.Controls.Add(ProductBarcodeLabel);
+        Cell.Controls.Add(ProductBarcodeTextBox);
+        Cell.Controls.Add(EditButton);
+        Cell.Controls.Add(DeleteButton);
     }
     
     public void RefreshProductInfo()
     {
-        ProductPositionNumberTextBox.Text = product.PositionNumber.ToString();
-        ProductNameTextBox.Text = product.Name;
-        ProductPriceTextBox.Text = product.Price.ToString();
-        ProductBarcodeTextBox.Text = product.Barcode;
+        ProductPositionNumberTextBox.Text = Product.PositionNumber.ToString();
+        ProductNameTextBox.Text = Product.Name;
+        ProductPriceTextBox.Text = Product.Price.ToString();
+        ProductBarcodeTextBox.Text = Product.Barcode;
     }
 
-    public int GetCurrentGroupYPosition() => ProductElementsGroup.Location.Y;
+    public int GetCurrentGroupYPosition() => Cell.Location.Y;
 
     public void SetNewGroupYPosition(int yPos)
     {
-        int xPos = ProductElementsGroup.Location.X;
-        ProductElementsGroup.Location = new Point(xPos, yPos);
+        int xPos = Cell.Location.X;
+        Cell.Location = new Point(xPos, yPos);
     }
 
-    public bool ReferenceEquals(ProductInformation obj) => ReferenceEquals(product, obj);
+    public bool ReferenceEquals(ProductInformation obj) => ReferenceEquals(Product, obj);
 }

@@ -5,47 +5,45 @@ using Treynessen.Products;
 
 public partial class Form1 : Form
 {
-    private void EditProduct(ProductInformation product, string positionNumber, string productName, string price, string barcode)
+    private bool EditProduct(ProductInformation product, string positionNumberText, string name, string priceText, string barcode)
     {
-        int oldPositionNumber = product.PositionNumber;
+        if (string.IsNullOrEmpty(positionNumberText)
+            && string.IsNullOrEmpty(name)
+            && string.IsNullOrEmpty(priceText))
+        {
+            return false;
+        }
+        int? price = null, positionNumber = null;
         try
         {
-            product.PositionNumber = Convert.ToInt32(positionNumber);
+            price = Convert.ToInt32(priceText);
         }
         catch { }
-        product.Name = productName;
         try
         {
-            product.Price = Convert.ToInt32(price);
+            positionNumber = Convert.ToInt32(positionNumberText);
         }
         catch { }
-        product.Barcode = barcode;
-        if (oldPositionNumber != product.PositionNumber)
+        if (!price.HasValue || !positionNumber.HasValue)
+            return false;
+        if (product.PositionNumber != positionNumber.Value)
         {
-            for (LinkedListNode<ProductInfoGroup> it = displayedGroups.First; it != null; it = it.Next)
-            {
-                // Находим в списке отображенных групп нашу позицию
-                if (it.Value.ReferenceEquals(product))
-                {
-                    // и делаем её невидимой 
-                    it.Value.ProductElementsGroup.Visible = false;
-                    for (LinkedListNode<ProductInfoGroup> it_2 = it.Next; it_2 != null; it_2 = it_2.Next)
-                    {
-                        // смещаем последующие позиции из группы вниз
-                        it_2.Value.SetNewGroupYPosition(GetPreviousYPosition(it_2.Value.GetCurrentGroupYPosition()));
-                    }
-                    panel1.Controls.Remove(it.Value.ProductElementsGroup);
-                    displayedGroups.Remove(it);
-                    break;
-                }
-            }
-            // удаляем товар
-            data.Remove(product);
-            // снова добавляем его (это было глупое решение - проводить так сортировку, но переделывать уже лень)
-            AddProduct(product);
-            AddGroup(product);
+            LinkedListNode<ProductInformation> productNode = data.Find(product);
+            data.Remove(productNode);
+            product.PositionNumber = positionNumber.Value;
+            product.Name = name;
+            product.Price = price.Value;
+            product.Barcode = barcode;
+            AddProductToData(product);
+        }
+        else
+        {
+            product.PositionNumber = positionNumber.Value;
+            product.Name = name;
+            product.Price = price.Value;
+            product.Barcode = barcode;
         }
         SerializeToFile();
-        MessageBox.Show("Позиция изменена");
+        return true;
     }
 }

@@ -49,10 +49,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form\AddProduct.cs">
+    <Compile Include="Form\Buttons\AddProductButton_Click.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\AddGroup.cs">
+    <Compile Include="Form\Buttons\NextPageButton_Click.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Buttons\PreviousPageButton_Click.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\AddProductToData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\AddPageButtons.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\EditProduct.cs">
@@ -61,19 +70,27 @@
     <Compile Include="Form\DeleteProduct.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\DeleteGroup.cs">
+    <Compile Include="Form\DisplayProducts.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\FindButton_Click.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProductInfoGroup.cs" />
-    <Compile Include="Form\DisplayProductList.cs">
+    <Compile Include="Form\Buttons\FindButton_Click.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\DesirializeFromFile.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ProductsPanelManager\AddProduct.cs" />
+    <Compile Include="ProductsPanelManager\EditProduct.cs" />
+    <Compile Include="ProductsPanelManager\CreateProductCell.cs" />
+    <Compile Include="ProductsPanelManager\DeleteProduct.cs" />
+    <Compile Include="ProductsPanelManager\ToPreviousPage.cs" />
+    <Compile Include="ProductsPanelManager\ToNextPage.cs" />
+    <Compile Include="ProductsPanelManager\GetNextYPosition.cs" />
+    <Compile Include="ProductsPanelManager\GetPreviousYPosition.cs" />
+    <Compile Include="ProductsPanelManager\DisplayCurrentPage.cs" />
+    <Compile Include="ProductsPanelManager\ClearProductsPanel.cs" />
+    <Compile Include="ProductsPanelManager\CTOR.cs" />
+    <Compile Include="ProductCell.cs" />
     <Compile Include="Form\SerializeToFile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,9 +99,6 @@
     </Compile>
     <Compile Include="Form\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form\AddProductButton_Click.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

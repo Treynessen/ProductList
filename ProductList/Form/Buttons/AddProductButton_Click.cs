@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using Treynessen.Products;
 
 public partial class Form1 : Form
@@ -14,7 +10,7 @@ public partial class Form1 : Form
             && string.IsNullOrEmpty(ProductPriceTextBox.Text)
             && string.IsNullOrEmpty(ProductPositionNumberTextBox.Text))
         {
-            MessageBox.Show("Форма не заполнена или заполнена неверно");
+            MessageBox.Show("Форма не заполнена");
             return;
         }
         int? price = null, positionNumber = null;
@@ -28,25 +24,27 @@ public partial class Form1 : Form
             positionNumber = Convert.ToInt32(ProductPositionNumberTextBox.Text);
         }
         catch { }
-        if (!positionNumber.HasValue && string.IsNullOrEmpty(ProductNameTextBox.Text) && !price.HasValue)
+        if (!price.HasValue || !positionNumber.HasValue)
         {
-            MessageBox.Show("Форма не заполнена или заполнена неверно");
+            MessageBox.Show("Форма заполнена неверно");
             return;
         }
-        if (!positionNumber.HasValue)
-            positionNumber = 0;
-        if (!price.HasValue)
-            price = 0;
         ProductInformation product = new ProductInformation
         {
+            PositionNumber = positionNumber.Value,
             Name = ProductNameTextBox.Text,
-            Price = price.Value,
-            PositionNumber = positionNumber.Value
+            Price = price.Value
         };
-        AddProduct(product);
-        ProductNameTextBox.Text = ProductPriceTextBox.Text = ProductPositionNumberTextBox.Text = string.Empty;
+        if (productsPanelManager != null && (!displayedPosition.HasValue || displayedPosition.Value == product.PositionNumber))
+        {
+            bool createdPage = false;
+            productsPanelManager.AddProduct(product, ref createdPage);
+            if (createdPage)
+                AddPageButtons();
+        }
+        AddProductToData(product);
         SerializeToFile();
-        AddGroup(product);
+        ProductPositionNumberTextBox.Text = ProductNameTextBox.Text = ProductPriceTextBox.Text = string.Empty;
         MessageBox.Show("Товар добавлен");
     }
 }

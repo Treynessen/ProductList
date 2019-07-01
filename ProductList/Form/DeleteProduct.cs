@@ -1,16 +1,13 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Collections.Generic;
+﻿using System.Windows.Forms;
 using Treynessen.Products;
 
 public partial class Form1 : Form
 {
-    private void DeleteProduct(ProductInformation product)
+    private bool DeleteProduct(ProductInformation product)
     {
-        data.Remove(product);
-        SerializeToFile();
-        DeleteGroup(product);
-        MessageBox.Show("Позиция удалена");
+        bool success = data.Remove(product);
+        if (success)
+            SerializeToFile();
+        return success;
     }
 }
