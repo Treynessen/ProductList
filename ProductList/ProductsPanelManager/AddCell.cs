@@ -7,7 +7,7 @@ public partial class ProductsPanelManager
 {
     public void AddCell(ProductInformation product)
     {
-        bool createdPage = false;
+        bool currentPageChanged = false;
 
         ProductCell cell = CreateProductCell(product, startedYPos);
 
@@ -17,7 +17,7 @@ public partial class ProductsPanelManager
             pages.First.Value.AddLast(cell);
             currentPage = pages.First;
             DisplayCurrentPage();
-            createdPage = true;
+            currentPageChanged = true;
         }
         // Если у нас уже отображены товары, тогда необходимо найти место для текущего товара
         // и сдвинуть все последующие на NextYPos(от текущей позиции). Если после вставки
@@ -48,6 +48,7 @@ public partial class ProductsPanelManager
                         {
                             cell.Cell.Visible = true;
                             productsPanel.Controls.Add(cell.Cell);
+                            currentPageChanged = true;
                         }
                         found = true;
                     }
@@ -79,7 +80,8 @@ public partial class ProductsPanelManager
                     {
                         pageNode.List.AddLast(new LinkedList<ProductCell>());
                         pageNode.List.Last.Value.AddLast(pageNode.Value.Last.Value);
-                        createdPage = true;
+                        if (pageNode == currentPage)
+                            currentPageChanged = true;
                     }
                     pageNode.Value.Remove(pageNode.Value.Last);
                 }
@@ -93,7 +95,8 @@ public partial class ProductsPanelManager
                 {
                     pages.AddLast(new LinkedList<ProductCell>());
                     pages.Last.Value.AddLast(cell);
-                    createdPage = true;
+                    if (currentPage == pages.Last.Previous)
+                        currentPageChanged = true;
                 }
                 else
                 {
@@ -109,7 +112,7 @@ public partial class ProductsPanelManager
                 }
             }
         }
-        if (createdPage && PageAddedOrDeleted != null)
-            PageAddedOrDeleted();
+        if (currentPageChanged && CurrentPageChanged != null)
+            CurrentPageChanged();
     }
 }

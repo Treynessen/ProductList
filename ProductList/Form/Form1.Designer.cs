@@ -42,6 +42,7 @@
             this.PreviousPageButton = new System.Windows.Forms.Button();
             this.NextPageButton = new System.Windows.Forms.Button();
             this.PageInfoLabel = new System.Windows.Forms.Label();
+            this.ProductPositionInfoLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // AddProductButton
@@ -178,16 +179,26 @@
             // 
             this.PageInfoLabel.AutoSize = true;
             this.PageInfoLabel.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PageInfoLabel.Location = new System.Drawing.Point(510, 588);
+            this.PageInfoLabel.Location = new System.Drawing.Point(510, 585);
             this.PageInfoLabel.Name = "PageInfoLabel";
             this.PageInfoLabel.Size = new System.Drawing.Size(0, 17);
             this.PageInfoLabel.TabIndex = 14;
+            // 
+            // ProductPositionInfoLabel
+            // 
+            this.ProductPositionInfoLabel.AutoSize = true;
+            this.ProductPositionInfoLabel.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.ProductPositionInfoLabel.Location = new System.Drawing.Point(510, 603);
+            this.ProductPositionInfoLabel.Name = "ProductPositionInfoLabel";
+            this.ProductPositionInfoLabel.Size = new System.Drawing.Size(0, 17);
+            this.ProductPositionInfoLabel.TabIndex = 15;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 631);
+            this.ClientSize = new System.Drawing.Size(800, 625);
+            this.Controls.Add(this.ProductPositionInfoLabel);
             this.Controls.Add(this.PageInfoLabel);
             this.Controls.Add(this.NextPageButton);
             this.Controls.Add(this.PreviousPageButton);
@@ -204,8 +215,8 @@
             this.Controls.Add(this.AddProductButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(816, 670);
-            this.MinimumSize = new System.Drawing.Size(816, 670);
+            this.MaximumSize = new System.Drawing.Size(816, 664);
+            this.MinimumSize = new System.Drawing.Size(816, 664);
             this.Name = "Form1";
             this.Text = "База товаров";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -231,5 +242,6 @@
     private System.Windows.Forms.Button PreviousPageButton;
     private System.Windows.Forms.Button NextPageButton;
     private System.Windows.Forms.Label PageInfoLabel;
+    private System.Windows.Forms.Label ProductPositionInfoLabel;
 }
 

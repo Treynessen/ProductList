@@ -7,7 +7,7 @@ using Treynessen.Products;
 public partial class Form1 : Form
 {
     private ProductsPanelManager productsPanelManager;
-    private const int MAX_DISPLAYED_CELLS = 25;
+    private const int MAX_DISPLAYED_CELLS = 3;
     private int? displayedPosition;
 
     private LinkedList<ProductInformation> data;

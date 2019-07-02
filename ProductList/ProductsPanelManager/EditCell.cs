@@ -20,6 +20,7 @@ public partial class ProductsPanelManager
                         DeleteCell(product);
                         AddCell(product);
                     }
+                    CurrentPageChanged?.Invoke();
                 }
             }
         }

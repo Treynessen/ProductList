@@ -76,8 +76,8 @@ public partial class ProductsPanelManager
                 }
                 // Иначе просто удаляем
                 else pages.Remove(pages.Last);
-                PageAddedOrDeleted?.Invoke();
             }
+            CurrentPageChanged?.Invoke();
         }
     }
 }

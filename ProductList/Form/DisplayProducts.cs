@@ -20,7 +20,7 @@ public partial class Form1 : Form
             deleteProduct: DeleteProduct
         );
 
-        productsPanelManager.PageAddedOrDeleted += RefreshFormFooter;
+        productsPanelManager.CurrentPageChanged += RefreshFormFooter;
 
         productsPanelManager.DisplayCurrentPage();
 

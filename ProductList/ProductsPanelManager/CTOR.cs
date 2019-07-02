@@ -15,7 +15,27 @@ public partial class ProductsPanelManager
     public int CurrentPageNum { get; private set; }
     public int NumberOfPages => pages.Count;
 
-    public event Action PageAddedOrDeleted;
+    public int FirstProductPositionNum
+    {
+        get
+        {
+            if (currentPage != null && currentPage.Value.First != null)
+                return currentPage.Value.First.Value.Product.PositionNumber;
+            else return 0;
+        }
+    }
+
+    public int LastProductPositionNum
+    {
+        get
+        {
+            if (currentPage != null && currentPage.Value.Last != null)
+                return currentPage.Value.Last.Value.Product.PositionNumber;
+            else return 0;
+        }
+    }
+
+    public event Action CurrentPageChanged;
 
     public ProductsPanelManager(LinkedList<ProductInformation> products, Panel productsPanel, int maxDisplayedCells,
         Action<ProductInformation, string, string, string, string> editProduct, Func<ProductInformation, bool> deleteProduct)
