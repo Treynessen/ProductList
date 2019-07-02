@@ -20,10 +20,10 @@ public partial class Form1 : Form
             deleteProduct: DeleteProduct
         );
 
-        productsPanelManager.NumOfCellsChanged += AddPageButtons;
+        productsPanelManager.PageAddedOrDeleted += RefreshFormFooter;
 
         productsPanelManager.DisplayCurrentPage();
 
-        AddPageButtons();
+        RefreshFormFooter();
     }
 }

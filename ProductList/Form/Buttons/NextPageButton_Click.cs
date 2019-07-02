@@ -8,6 +8,6 @@ public partial class Form1 : Form
         productsPanelManager.ToNextPage();
         PreviousPageButton.Visible = false;
         NextPageButton.Visible = false;
-        AddPageButtons();
+        RefreshFormFooter();
     }
 }

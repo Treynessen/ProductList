@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 public partial class Form1 : Form
 {
-    private void AddPageButtons()
+    private void RefreshFormFooter()
     {
         if (productsPanelManager.NumberOfPages < 2)
         {

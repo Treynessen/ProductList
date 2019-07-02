@@ -15,7 +15,7 @@ public partial class ProductsPanelManager
     public int CurrentPageNum { get; private set; }
     public int NumberOfPages => pages.Count;
 
-    public event Action NumOfCellsChanged;
+    public event Action PageAddedOrDeleted;
 
     public ProductsPanelManager(LinkedList<ProductInformation> products, Panel productsPanel, int maxDisplayedCells,
         Action<ProductInformation, string, string, string, string> editProduct, Func<ProductInformation, bool> deleteProduct)

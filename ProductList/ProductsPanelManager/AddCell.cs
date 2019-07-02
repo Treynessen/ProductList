@@ -109,7 +109,7 @@ public partial class ProductsPanelManager
                 }
             }
         }
-        if (createdPage && NumOfCellsChanged != null)
-            NumOfCellsChanged();
+        if (createdPage && PageAddedOrDeleted != null)
+            PageAddedOrDeleted();
     }
 }
