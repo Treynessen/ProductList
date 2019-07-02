@@ -61,7 +61,7 @@
     <Compile Include="Form\AddProductToData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\AddPageButtons.cs">
+    <Compile Include="Form\RefreshFormFooter.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\EditProduct.cs">
