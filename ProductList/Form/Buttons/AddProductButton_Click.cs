@@ -37,10 +37,7 @@ public partial class Form1 : Form
         };
         if (productsPanelManager != null && (!displayedPosition.HasValue || displayedPosition.Value == product.PositionNumber))
         {
-            bool createdPage = false;
-            productsPanelManager.AddProduct(product, ref createdPage);
-            if (createdPage)
-                AddPageButtons();
+            productsPanelManager.AddCell(product);
         }
         AddProductToData(product);
         SerializeToFile();

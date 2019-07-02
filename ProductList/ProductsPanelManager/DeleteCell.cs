@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
-using Treynessen.Products;
+﻿using Treynessen.Products;
+using Page = System.Collections.Generic.LinkedListNode<System.Collections.Generic.LinkedList<ProductCell>>;
+using Cell = System.Collections.Generic.LinkedListNode<ProductCell>;
 
 public partial class ProductsPanelManager
 {
-    private void DeleteProduct(ProductInformation product)
+    private void DeleteCell(ProductInformation product)
     {
-        LinkedListNode<LinkedList<ProductCell>> pageWithDeletableCell = null;
-        LinkedListNode<ProductCell> deletableCell = null;
+        Page pageWithDeletableCell = null;
+        Cell deletableCell = null;
 
         bool found = false;
         // Ищем удаляемый товар
-        for (var pageNode = pages.First; pageNode != null; pageNode = pageNode.Next)
+        for (Page pageNode = pages.First; pageNode != null; pageNode = pageNode.Next)
         {
-            for (LinkedListNode<ProductCell> cellNode = pageNode.Value.First; cellNode != null; cellNode = cellNode.Next)
+            for (Cell cellNode = pageNode.Value.First; cellNode != null; cellNode = cellNode.Next)
             {
                 // Смещаем все последующие товары на GetPreviousYPos(от текущей позиции)
                 if (found)
@@ -28,14 +29,18 @@ public partial class ProductsPanelManager
                     found = true;
                 }
             }
-            // Если есть ещё страница и был удален товар, тогда переносил первый товар со следующей страницы
+            // Если есть ещё страница и был удален товар, тогда переносим первый товар со следующей страницы
             // на текущую
             if (found && pageNode.Next != null)
             {
                 int lastProductYPos = pageNode.Value.Last.Value.Cell.Location.Y;
-                pageNode.Value.AddLast(pageNode.Next.Value.First.Value);
+                // Добавляем первый товар со следующей страницы на текущую страницу
+                pageNode.Value.AddLast(pageNode.Next.Value.First.Value); 
+                // Устанавливаем перенесенной ячейке новое y-значение
                 pageNode.Value.Last.Value.SetNewGroupYPosition(GetNextYPos(lastProductYPos));
-                pageNode.Next.Value.First.Value.Cell.Visible = false;
+                // Делаем эту ячейку невидимой
+                pageNode.Value.Last.Value.Cell.Visible = false;
+                // Удаляем переносимую ячейку со следующей страницы
                 productsPanel.Controls.Remove(pageNode.Next.Value.First.Value.Cell);
                 pageNode.Next.Value.Remove(pageNode.Next.Value.First);
                 // Если страница на которую сделан перенос - текущая страница, 
@@ -45,53 +50,33 @@ public partial class ProductsPanelManager
                     pageNode.Value.Last.Value.Cell.Visible = true;
                     productsPanel.Controls.Add(pageNode.Value.Last.Value.Cell);
                 }
-                // Если на следующей странице не осталось товаров, то удаляем её
-                if (pageNode.Next.Value.Count == 0)
-                {
-                    // Если следующая страница - это текущая страница, тогда пытаемся перейти на предыдущую
-                    if (pageNode.Next == currentPage && currentPage.Previous != null)
-                    {
-                        ToPreviousPage();
-                        pages.Remove(currentPage.Next);
-                    }
-                    // Если это текущая страница и она единственная, то удаляем и присваиваем текущей странице
-                    // значение null
-                    else if (pageNode.Next == currentPage)
-                    {
-                        pages.Remove(currentPage);
-                        currentPage = null;
-                    }
-                    // Иначе просто удаляем
-                    else pages.Remove(pageNode.Next);
-                    addPageButtons();
-                }
             }
         }
-
         if (pageWithDeletableCell != null && deletableCell != null)
         {
             deletableCell.Value.Cell.Visible = false;
             productsPanel.Controls.Remove(deletableCell.Value.Cell);
             pageWithDeletableCell.Value.Remove(deletableCell);
-            // Если на странице не осталось товаров, то удаляем её
-            if (pageWithDeletableCell.Value.Count == 0)
+
+            // Если после удаления ячейки товара на последней странице не осталось товаров, то удаляем её
+            if (pages.Last.Value.Count == 0)
             {
                 // Если удаляемая страница - это текущая страница, тогда пытаемся перейти на предыдущую
-                if (pageWithDeletableCell == currentPage && currentPage.Previous != null)
+                if (pages.Last == currentPage && currentPage.Previous != null)
                 {
                     ToPreviousPage();
-                    pages.Remove(currentPage.Next);
+                    pages.Remove(pages.Last);
                 }
                 // Если это текущая страница и она единственная, то удаляем и присваиваем текущей странице
                 // значение null
-                else if (pageWithDeletableCell == currentPage)
+                else if (pages.Last == currentPage)
                 {
-                    pages.Remove(currentPage);
+                    pages.Remove(pages.Last);
                     currentPage = null;
                 }
                 // Иначе просто удаляем
-                else pages.Remove(pageWithDeletableCell);
-                addPageButtons();
+                else pages.Remove(pages.Last);
+                NumOfCellsChanged();
             }
         }
     }

@@ -6,6 +6,7 @@
         {
             foreach (var cell in currentPage.Value)
             {
+                cell.RefreshProductInfo();
                 cell.Cell.Visible = true;
                 productsPanel.Controls.Add(cell.Cell);
             }

@@ -8,7 +8,7 @@ public partial class Form1 : Form
     {
         if (data == null)
             return;
-
+        
         if (productsPanelManager != null)
             productsPanel.Controls.Clear();
 
@@ -17,9 +17,10 @@ public partial class Form1 : Form
             productsPanel: productsPanel,
             maxDisplayedCells: MAX_DISPLAYED_CELLS,
             editProduct: EditProduct,
-            deleteProduct: DeleteProduct,
-            addPageButtons: AddPageButtons
+            deleteProduct: DeleteProduct
         );
+
+        productsPanelManager.NumOfCellsChanged += AddPageButtons;
 
         productsPanelManager.DisplayCurrentPage();
 

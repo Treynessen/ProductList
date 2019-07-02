@@ -5,13 +5,13 @@ using Treynessen.Products;
 
 public partial class Form1 : Form
 {
-    private bool EditProduct(ProductInformation product, string positionNumberText, string name, string priceText, string barcode)
+    private void EditProduct(ProductInformation product, string positionNumberText, string name, string priceText, string barcode)
     {
         if (string.IsNullOrEmpty(positionNumberText)
             && string.IsNullOrEmpty(name)
             && string.IsNullOrEmpty(priceText))
         {
-            return false;
+            return;
         }
         int? price = null, positionNumber = null;
         try
@@ -25,7 +25,7 @@ public partial class Form1 : Form
         }
         catch { }
         if (!price.HasValue || !positionNumber.HasValue)
-            return false;
+            return;
         if (product.PositionNumber != positionNumber.Value)
         {
             LinkedListNode<ProductInformation> productNode = data.Find(product);
@@ -44,6 +44,5 @@ public partial class Form1 : Form
             product.Barcode = barcode;
         }
         SerializeToFile();
-        return true;
     }
 }

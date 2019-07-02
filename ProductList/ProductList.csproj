@@ -79,10 +79,10 @@
     <Compile Include="Form\DesirializeFromFile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProductsPanelManager\AddProduct.cs" />
-    <Compile Include="ProductsPanelManager\EditProduct.cs" />
+    <Compile Include="ProductsPanelManager\AddCell.cs" />
+    <Compile Include="ProductsPanelManager\EditCell.cs" />
     <Compile Include="ProductsPanelManager\CreateProductCell.cs" />
-    <Compile Include="ProductsPanelManager\DeleteProduct.cs" />
+    <Compile Include="ProductsPanelManager\DeleteCell.cs" />
     <Compile Include="ProductsPanelManager\ToPreviousPage.cs" />
     <Compile Include="ProductsPanelManager\ToNextPage.cs" />
     <Compile Include="ProductsPanelManager\GetNextYPosition.cs" />

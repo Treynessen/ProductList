@@ -1,19 +1,23 @@
 ﻿using System.Collections.Generic;
 using Treynessen.Products;
+using Page = System.Collections.Generic.LinkedListNode<System.Collections.Generic.LinkedList<ProductCell>>;
+using Cell = System.Collections.Generic.LinkedListNode<ProductCell>;
 
 public partial class ProductsPanelManager
 {
-    public void AddProduct(ProductInformation product, ref bool createdPage)
+    public void AddCell(ProductInformation product)
     {
+        bool createdPage = false;
+
         ProductCell cell = CreateProductCell(product, startedYPos);
 
-        if (currentPage == null)
+        if (pages.Count == 0)
         {
-            pages = new LinkedList<LinkedList<ProductCell>>();
             pages.AddLast(new LinkedList<ProductCell>());
             pages.First.Value.AddLast(cell);
             currentPage = pages.First;
             DisplayCurrentPage();
+            createdPage = true;
         }
         // Если у нас уже отображены товары, тогда необходимо найти место для текущего товара
         // и сдвинуть все последующие на NextYPos(от текущей позиции). Если после вставки
@@ -28,9 +32,9 @@ public partial class ProductsPanelManager
         {
             bool found = false;
             // Ищем позицию для добавленного товара и смещаем все последующие позиции
-            for (var pageNode = pages.First; pageNode != null; pageNode = pageNode.Next)
+            for (Page pageNode = pages.First; pageNode != null; pageNode = pageNode.Next)
             {
-                for (LinkedListNode<ProductCell> cellNode = pageNode.Value.First; cellNode != null; cellNode = cellNode.Next)
+                for (Cell cellNode = pageNode.Value.First; cellNode != null; cellNode = cellNode.Next)
                 {
                     // Если это перенесенная позиция с прошлой страницы, то пропускаем
                     if (found && cellNode == pageNode.Value.First)
@@ -83,7 +87,7 @@ public partial class ProductsPanelManager
             // Если место не найдено, значит добавляем в конец последней страницы
             if (!found)
             {
-                // Если количество товаров на последней страницы - максимальное, то
+                // Если количество товаров на последней странице - максимальное, то
                 // создаем новую и переносим туда наш товар
                 if (pages.Last.Value.Count + 1 > maxDisplayedCells)
                 {
@@ -105,5 +109,7 @@ public partial class ProductsPanelManager
                 }
             }
         }
+        if (createdPage && NumOfCellsChanged != null)
+            NumOfCellsChanged();
     }
 }
