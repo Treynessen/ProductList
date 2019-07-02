@@ -9,3 +9,4 @@ D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Release\ProductList.cs
 D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Release\ProductList.exe
 D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Release\ProductList.pdb
 D:\Users\trane\Desktop\github\ProductList\ProductList\bin\Release\ProductInformation.dll
+D:\Users\trane\Desktop\github\ProductList\ProductList\obj\Release\ProductList.csprojAssemblyReference.cache

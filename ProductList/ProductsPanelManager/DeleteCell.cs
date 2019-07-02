@@ -35,7 +35,7 @@ public partial class ProductsPanelManager
             {
                 int lastProductYPos = pageNode.Value.Last.Value.Cell.Location.Y;
                 // Добавляем первый товар со следующей страницы на текущую страницу
-                pageNode.Value.AddLast(pageNode.Next.Value.First.Value); 
+                pageNode.Value.AddLast(pageNode.Next.Value.First.Value);
                 // Устанавливаем перенесенной ячейке новое y-значение
                 pageNode.Value.Last.Value.SetNewGroupYPosition(GetNextYPos(lastProductYPos));
                 // Делаем эту ячейку невидимой
@@ -76,7 +76,7 @@ public partial class ProductsPanelManager
                 }
                 // Иначе просто удаляем
                 else pages.Remove(pages.Last);
-                NumOfCellsChanged();
+                NumOfCellsChanged?.Invoke();
             }
         }
     }
