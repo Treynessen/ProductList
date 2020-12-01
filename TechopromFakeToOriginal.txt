@@ -1,0 +1,45 @@
+using System;
+using System.IO;
+using System.Text;
+using System.Collections.Generic;
+
+namespace TechopromFakeToOriginal
+{
+    class Program
+    {
+        static void Main()
+        {
+            StringBuilder productListContent = new StringBuilder();
+            Console.Write("Путь до списка товаров html: ");
+            string htmlFilePath = Console.ReadLine().Trim('"');
+            using (StreamReader reader = new StreamReader(htmlFilePath))
+            {
+                productListContent.Append(reader.ReadToEnd());
+            }
+            // Без библиотеки для работы json, чтобы не добавлять в проект доп. файлы
+            // Key - это фейковое название; Value - это оригинальное название
+            Dictionary<string, string> fakeOriginalNames = new Dictionary<string, string>();
+            Console.Write("Путь до файла с данными [оригинальное название]=[фейковое название]: ");
+            using (StreamReader reader = new StreamReader(Console.ReadLine().Trim('"')))
+            {
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    int separatorIndex = line.IndexOf('=');
+                    fakeOriginalNames.TryAdd(
+                        key: line.Substring(separatorIndex + 1, line.Length - separatorIndex - 1),
+                        value: line.Substring(0, separatorIndex)
+                    );
+                }
+            }
+            foreach (var fakeOriginalName in fakeOriginalNames)
+            {
+                productListContent.Replace(fakeOriginalName.Key, fakeOriginalName.Value);
+            }
+            using (StreamWriter writer = new StreamWriter(htmlFilePath, false))
+            {
+                writer.Write(productListContent.ToString());
+            }
+        }
+    }
+}
