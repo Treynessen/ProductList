@@ -14,41 +14,41 @@ class Program
     {
         StringBuilder content = new StringBuilder();
         content.Append("<!DOCTYPE html>\n<html lang=\"ru-RU\">\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title>Список товаров</title>\n</head>\n<body>\n\t<table>");
-        Console.Write("Файл с БД товаров: ");
-        string pathToDB = Console.ReadLine();
-        pathToDB = GetCorrectPath(pathToDB);
-        Console.Write("Товарный отчет: ");
-        string pathToFile = Console.ReadLine();
-        pathToFile = GetCorrectPath(pathToFile);
-        Workbook wb = app.Workbooks.Open(pathToFile);
-        Worksheet sheet = wb.Worksheets[1] as Worksheet;
+        Console.Write("Путь до файла с БД товаров: ");
         LinkedList<ProductInformation> products = null;
-        using (FileStream fs = new FileStream(pathToDB, FileMode.Open))
+        using (FileStream fs = new FileStream(Console.ReadLine().Trim('"'), FileMode.Open))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             products = formatter.Deserialize(fs) as LinkedList<ProductInformation>;
         }
+        Console.Write("Путь до товарного отчета: ");
+        Workbook wb = app.Workbooks.Open(Console.ReadLine().Trim('"'));
+        Worksheet sheet = wb.Worksheets[1] as Worksheet;
+        Console.Write("Сдвиг номера позиции и номера ячейки в товарном отчете (разница между ячейкой в товарном отчете и номером позиции): ");
+        int positionOffset = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Номер столбца с общим количеством товара, где 1 - это первый столбец: ");
+        int productCountCollumnId = Convert.ToInt32(Console.ReadLine());
         int ID = 1;
         foreach (var product in products)
         {
-            int count = Convert.ToInt32((sheet.Cells[product.PositionNumber + 2, 4] as Range).Value2.ToString());
-            content.Append($"<tr>" +
-                "<td></td>" +
-                $"<td>{product.Name}</td>" +
-                "<td>0</td>" +
-                $"<td>{ID++}</td>" +
-                "<td></td>" +
-                "<td>шт</td>" +
-                "<td></td>" +
-                "<td>1</td>" +
-                "<td></td>" +
-                $"<td>№{product.PositionNumber}#</td>" +
-                "<td>NORMAL</td>" +
-                "<td></td>" +
-                $"<td>{product.Price}</td>" +
-                $"<td>{count}</td>" +
-                $"<td>{product.Barcode}</td>" +
-                $"</tr>");
+            int count = Convert.ToInt32((sheet.Cells[product.PositionNumber + positionOffset, productCountCollumnId] as Microsoft.Office.Interop.Excel.Range).Value2.ToString());
+            content.Append(
+                $"<tr>" +
+                "<td></td>" + // uuid
+                $"<td>{product.Name}</td>" + // наименование
+                "<td>0</td>" + // ЭтоГруппа
+                $"<td>{ID++}</td>" + // Код
+                "<td></td>" + // КодГруппы
+                "<td>шт</td>" + // Ед
+                "<td></td>" + // Цена
+                $"<td>{product.Price}</td>" + // ЦенаЗакупки
+                $"<td>{count}</td>" + // Остаток
+                $"<td>№{product.PositionNumber}#</td>" + // Артикул
+                "<td>NORMAL</td>" + // Тип
+                "<td></td>" + // НДС
+                $"<td>{product.Barcode}</td>" + // Штрихкод
+                "</tr>"
+            );
         }
         content.Append("\n</body>\n</html>");
         using (StreamWriter writer = new StreamWriter("Список позиций.html"))
@@ -56,14 +56,5 @@ class Program
             writer.Write(content.ToString());
         }
         wb.Close();
-    }
-
-    private static string GetCorrectPath(string path)
-    {
-        if (path[0].Equals('\"'))
-            path = path.Substring(1);
-        if (path[path.Length - 1].Equals('\"'))
-            path = path.Substring(0, path.Length - 1);
-        return path;
     }
 }
